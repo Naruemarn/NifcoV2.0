@@ -90,6 +90,7 @@ namespace NifcoV2._0
         StringBuilder messageData = new StringBuilder();
 
         bool f_ready = false;
+        int cntWrongFormmat = 0;
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
@@ -698,6 +699,36 @@ namespace NifcoV2._0
         }
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
+        public void WrongDataLogging(string ip, string data)
+        {
+            try
+            {
+                //string strPath = @"C:\AutoSyncData_Log\Error_log.txt";
+
+                string path = Directory.GetCurrentDirectory();
+                string strPath = path + "\\Log\\WrongData.txt";
+
+                if (!File.Exists(strPath))
+                {
+                    File.Create(strPath).Dispose();
+                }
+
+                string dt = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+
+                using (StreamWriter sw = File.AppendText(strPath))
+                {
+                    sw.WriteLine(dt + "    IP: " + ip + "    " + "Data: " + data);
+                    sw.Close();
+                }
+
+            }
+            catch (Exception ex1)
+            {
+                //MessageBox.Show(ex1.ToString());
+            }
+        }
+        //--------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------
         public void ErrorLogging(Exception ex)
         {
             try
@@ -1233,6 +1264,7 @@ namespace NifcoV2._0
             if(server.IsListening)
             {
                 server.Send(Client_IP_Port, Dat);
+                Debug.WriteLine("### Confirm Received!!!");
             }
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1269,197 +1301,209 @@ namespace NifcoV2._0
         {
             this.Invoke((MethodInvoker)delegate
             {
-                
-                string dat = Encoding.UTF8.GetString(e.Data.Array);
-                dat = dat.TrimEnd('\0'); // remove \0\0\0\0\0\0\0\0\0 in data
-                //textBox1.Text += $"{e.IpPort}: {dat}{Environment.NewLine}";
-
-                string[] ip = e.IpPort.Split(':');
-
-                if (dat.IndexOf("\u0004") > -1) // <CR><EOT>  \r\u0004
+                try
                 {
-                    if (f_ready == false)
+                    string dat = Encoding.UTF8.GetString(e.Data.Array);
+                    dat = dat.TrimEnd('\0'); // remove \0\0\0\0\0\0\0\0\0 in data
+                    //textBox1.Text += $"{e.IpPort}: {dat}{Environment.NewLine}";
+                    Debug.WriteLine("----------------------------------------------------------------------------------------------------------------------------");
+                    Debug.Write(dat);
+
+                    if (dat.IndexOf("\u0004") > -1) // <CR><EOT>  \r\u0004
                     {
-                        f_ready = true;
-
-                        List<String> listStr = new List<String>();
-
-                        listStr = dat.Split(',').ToList();
-
-                        string Header = "";
-                        try
+                        if (f_ready == false)
                         {
-                            Header = listStr[0].Substring(0, 3);
-                        }
-                        catch { }
+                            f_ready = true;
 
-                        if (Header == "HRD")
-                        {
-                            string line_num = "";
-                            string mc_name = "";
+                            string[] ip = e.IpPort.Split(':');
 
-                            if (ip[0] == MC_IP_ini[0])
+                            List<String> listStr = new List<String>();
+
+                            listStr = dat.Split(',').ToList();
+
+                            string Header = "";
+                            try
                             {
-                                line_num = Line1_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[0] = true;
-                                timeout_running[0] = 0;
-
-                                Update_MC_Run_Idle(1, true);
+                                Header = listStr[0].Substring(0, 3);
                             }
-                            else if (ip[0] == MC_IP_ini[1])
+                            catch { }
+
+                            if (Header == "HRD")
                             {
-                                line_num = Line1_ini;
-                                mc_name = Machine_Type2_ini;
+                                string line_num = "";
+                                string mc_name = "";
 
-                                f_running[1] = true;
-                                timeout_running[1] = 0;
-
-                                Update_MC_Run_Idle(2, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[2])
-                            {
-                                line_num = Line2_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[2] = true;
-                                timeout_running[2] = 0;
-
-                                Update_MC_Run_Idle(3, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[3])
-                            {
-                                line_num = Line2_ini;
-                                mc_name = Machine_Type2_ini;
-
-                                f_running[3] = true;
-                                timeout_running[3] = 0;
-
-                                Update_MC_Run_Idle(4, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[4])
-                            {
-                                line_num = Line3_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[4] = true;
-                                timeout_running[4] = 0;
-
-                                Update_MC_Run_Idle(5, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[5])
-                            {
-                                line_num = Line3_ini;
-                                mc_name = Machine_Type2_ini;
-
-                                f_running[5] = true;
-                                timeout_running[5] = 0;
-
-                                Update_MC_Run_Idle(6, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[6])
-                            {
-                                line_num = Line4_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[6] = true;
-                                timeout_running[6] = 0;
-
-                                Update_MC_Run_Idle(7, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[7])
-                            {
-                                line_num = Line4_ini;
-                                mc_name = Machine_Type2_ini;
-
-                                f_running[7] = true;
-                                timeout_running[7] = 0;
-
-                                Update_MC_Run_Idle(8, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[8])
-                            {
-                                line_num = Line5_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[8] = true;
-                                timeout_running[8] = 0;
-
-                                Update_MC_Run_Idle(9, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[9])
-                            {
-                                line_num = Line5_ini;
-                                mc_name = Machine_Type2_ini;
-
-                                f_running[9] = true;
-                                timeout_running[9] = 0;
-
-                                Update_MC_Run_Idle(10, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[10])
-                            {
-                                line_num = Line6_ini;
-                                mc_name = Machine_Type1_ini;
-
-                                f_running[10] = true;
-                                timeout_running[10] = 0;
-
-                                Update_MC_Run_Idle(11, true);
-                            }
-                            else if (ip[0] == MC_IP_ini[11])
-                            {
-                                line_num = Line6_ini;
-                                mc_name = Machine_Type2_ini;
-
-                                f_running[11] = true;
-                                timeout_running[11] = 0;
-
-                                Update_MC_Run_Idle(12, true);
-                            }
-
-
-                            string dtFormat = ConvertToDateTimeFormat(listStr);
-
-                            int cnt = Is_Inserted(dtFormat, mc_name, line_num);
-                            if (cnt > 0)
-                            {
-                                // data already in DB 
-                                Confirm_Recieved(e.IpPort, ip[0]);
-                                Debug.WriteLine(" -------------------------->> Cnt record in DB = " + cnt.ToString());
-                            }
-                            else
-                            {
-                                // Insert Database
-                                bool finish = Insert_Database(ip[0], mc_name, line_num, dtFormat, listStr);
-                                if (finish)
+                                if (ip[0] == MC_IP_ini[0])
                                 {
-                                    Confirm_Recieved(e.IpPort, ip[0]);
-                                    Debug.WriteLine(" -------------------------->> Inserted");
+                                    line_num = Line1_ini;
+                                    mc_name = Machine_Type1_ini;
 
+                                    f_running[0] = true;
+                                    timeout_running[0] = 0;
+
+                                    Update_MC_Run_Idle(1, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[1])
+                                {
+                                    line_num = Line1_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[1] = true;
+                                    timeout_running[1] = 0;
+
+                                    Update_MC_Run_Idle(2, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[2])
+                                {
+                                    line_num = Line2_ini;
+                                    mc_name = Machine_Type1_ini;
+
+                                    f_running[2] = true;
+                                    timeout_running[2] = 0;
+
+                                    Update_MC_Run_Idle(3, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[3])
+                                {
+                                    line_num = Line2_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[3] = true;
+                                    timeout_running[3] = 0;
+
+                                    Update_MC_Run_Idle(4, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[4])
+                                {
+                                    line_num = Line3_ini;
+                                    mc_name = Machine_Type1_ini;
+
+                                    f_running[4] = true;
+                                    timeout_running[4] = 0;
+
+                                    Update_MC_Run_Idle(5, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[5])
+                                {
+                                    line_num = Line3_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[5] = true;
+                                    timeout_running[5] = 0;
+
+                                    Update_MC_Run_Idle(6, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[6])
+                                {
+                                    line_num = Line4_ini;
+                                    mc_name = Machine_Type1_ini;
+
+                                    f_running[6] = true;
+                                    timeout_running[6] = 0;
+
+                                    Update_MC_Run_Idle(7, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[7])
+                                {
+                                    line_num = Line4_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[7] = true;
+                                    timeout_running[7] = 0;
+
+                                    Update_MC_Run_Idle(8, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[8])
+                                {
+                                    line_num = Line5_ini;
+                                    mc_name = Machine_Type1_ini;
+
+                                    f_running[8] = true;
+                                    timeout_running[8] = 0;
+
+                                    Update_MC_Run_Idle(9, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[9])
+                                {
+                                    line_num = Line5_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[9] = true;
+                                    timeout_running[9] = 0;
+
+                                    Update_MC_Run_Idle(10, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[10])
+                                {
+                                    line_num = Line6_ini;
+                                    mc_name = Machine_Type1_ini;
+
+                                    f_running[10] = true;
+                                    timeout_running[10] = 0;
+
+                                    Update_MC_Run_Idle(11, true);
+                                }
+                                else if (ip[0] == MC_IP_ini[11])
+                                {
+                                    line_num = Line6_ini;
+                                    mc_name = Machine_Type2_ini;
+
+                                    f_running[11] = true;
+                                    timeout_running[11] = 0;
+
+                                    Update_MC_Run_Idle(12, true);
+                                }
+
+
+                                string dtFormat = ConvertToDateTimeFormat(listStr);
+
+                                int cnt = Is_Inserted(dtFormat, mc_name, line_num);
+                                if (cnt > 0)
+                                {
+                                    // data already in DB 
+                                    Confirm_Recieved(e.IpPort, ip[0]);
+                                    Debug.WriteLine("### Cnt record in DB = " + cnt.ToString());
                                 }
                                 else
                                 {
-                                    // Client Send again
+                                    // Insert Database
+                                    bool finish = Insert_Database(ip[0], mc_name, line_num, dtFormat, listStr);
+                                    if (finish)
+                                    {
+                                        Confirm_Recieved(e.IpPort, ip[0]);
+                                        Debug.WriteLine("### Inserted");
+
+                                    }
+                                    else
+                                    {
+                                        // Client Send again
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if(cntWrongFormmat++ >= 3)
+                                {
+                                    cntWrongFormmat = 0;
+                                    WrongDataLogging(ip[0], dat);
+                                    Confirm_Recieved(e.IpPort, ip[0]);
+                                    Debug.WriteLine("Wrong Format!!!");
                                 }                                
                             }
-                        }
-                        else
-                        {
-                            Confirm_Recieved(e.IpPort, ip[0]);
-                            Debug.WriteLine("Reset.");
-                            Debug.WriteLine("Wrong Format!!!");
-                            Debug.WriteLine(" -------------------------->> Wrong Format!!!");
-                        }
 
+                            f_ready = false;
+                        }
+                    }
+                    else
+                    {
                         f_ready = false;
+                        return;
                     }
                 }
-                else
+                catch(Exception ex)
                 {
-                    return;
-                }                
+                    f_ready = false;
+                }
             });
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
