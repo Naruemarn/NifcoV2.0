@@ -89,7 +89,6 @@ namespace NifcoV2._0
 
         StringBuilder messageData = new StringBuilder();
 
-        bool f_ready = false;
         int cntWrongFormmat = 0;
         string[] ip_port = new string[13];
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -719,9 +718,13 @@ namespace NifcoV2._0
 
                 string dt = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
+                byte[] ba = Encoding.Default.GetBytes(data);
+                var hexString = BitConverter.ToString(ba);
+                hexString = hexString.Replace("-", "");
+
                 using (StreamWriter sw = File.AppendText(strPath))
                 {
-                    sw.WriteLine(dt + "    ID: " + id + "    IP: " + ip  + "    Data: " + data);
+                    sw.WriteLine(dt + "    ID: " + id + "    IP: " + ip  + "    Data: " + data + "    " + hexString);
                     sw.Close();
                 }
 
@@ -1399,126 +1402,128 @@ namespace NifcoV2._0
                         {
                             string dat = str.TrimEnd('\0'); // remove \0\0\0\0\0\0\0\0\0 in data
 
-                            if (f_ready == false)
+                            List<String> listStr = new List<String>();
+
+                            listStr = dat.Split(',').ToList();
+
+                            int len = listStr.Count();
+                            if (len >= 31)
                             {
-                                f_ready = true;
+                                string id = listStr[0];
+                                int idInt = int.Parse(id);
+                                string ipaddress = ip_port[idInt].ToString();
+                                Debug.Write("### ID: " + id + "    " + "IP: " + ipaddress + "    " + dat);
 
-                                List<String> listStr = new List<String>();
+                                string Header = "";
 
-                                listStr = dat.Split(',').ToList();
-
-                                int len = listStr.Count();
-                                if (len >= 31)
+                                List<char> characters = listStr[1].ToCharArray().ToList(); // แก้บัค หากมีขยะเข้ามาที HRD --> "8,�HRD240511,123203,16,1476,0.219,0.500,0.700,242.15,1596,0.350,2,0,0,0,0,0,0,0,0.500,0.400,0.650,0.750,,4,2,118,2.3,1,0,<CR><EOT>"
+                                int cnt_char = characters.Count();
+                                if(cnt_char > 9) // Error
                                 {
-                                    string id = listStr[0];
-                                    int idInt = int.Parse(id);
-                                    string ipaddress = ip_port[idInt].ToString();
-                                    Debug.Write("### ID: " + id + "    " + "IP: " + ipaddress + "    " + dat);
-
-                                    string Header = "";
-                                    try
-                                    {
-                                        Header = listStr[1].Substring(0, 3);
-                                    }
-                                    catch { }
-
-                                    if (Header == "HRD")
-                                    {
-                                        string line_num = "";
-                                        string mc_name = "";
-
-                                        switch (id)
-                                        {
-                                            case "1":
-                                                line_num = Line1_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "2":
-                                                line_num = Line1_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            case "3":
-                                                line_num = Line2_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "4":
-                                                line_num = Line2_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            case "5":
-                                                line_num = Line3_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "6":
-                                                line_num = Line3_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            case "7":
-                                                line_num = Line4_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "8":
-                                                line_num = Line4_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            case "9":
-                                                line_num = Line5_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "10":
-                                                line_num = Line5_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            case "11":
-                                                line_num = Line6_ini;
-                                                mc_name = Machine_Type1_ini;
-                                                break;
-                                            case "12":
-                                                line_num = Line6_ini;
-                                                mc_name = Machine_Type2_ini;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-
-
-                                        f_running[idInt] = true;
-                                        timeout_running[idInt] = 0;
-
-                                        Update_MC_Run_Idle(idInt, true);
-                                        InsertDataToDatabase(id, ipaddress, ip_port[idInt], mc_name, line_num, listStr);
-
-                                    }
-                                    else
-                                    {
-                                        if (cntWrongFormmat++ >= 3)
-                                        {
-                                            cntWrongFormmat = 0;
-                                            WrongDataLogging(id, ipaddress, dat);
-                                            Confirm_Recieved(ip_port[idInt], ipaddress);
-                                            Debug.WriteLine("ID: " + id + "    " + "IP: " + ipaddress + "    " + "Wrong Format HRD!!!");
-                                        }
-                                    }
-
-                                    f_ready = false;
+                                   characters.RemoveAt(0);
+                                    listStr[1] = new string(characters.ToArray());
+                                    Header = listStr[1].Substring(0, 3);
                                 }
                                 else
                                 {
-                                    // 1 packet = 31 arrays
-                                    // if <31 --> Don't care
+                                    Header = listStr[1].Substring(0, 3);
+                                }
+
+                                
+
+                                if (Header == "HRD")
+                                {
+                                    string line_num = "";
+                                    string mc_name = "";
+
+                                    switch (id)
+                                    {
+                                        case "1":
+                                            line_num = Line1_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "2":
+                                            line_num = Line1_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        case "3":
+                                            line_num = Line2_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "4":
+                                            line_num = Line2_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        case "5":
+                                            line_num = Line3_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "6":
+                                            line_num = Line3_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        case "7":
+                                            line_num = Line4_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "8":
+                                            line_num = Line4_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        case "9":
+                                            line_num = Line5_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "10":
+                                            line_num = Line5_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        case "11":
+                                            line_num = Line6_ini;
+                                            mc_name = Machine_Type1_ini;
+                                            break;
+                                        case "12":
+                                            line_num = Line6_ini;
+                                            mc_name = Machine_Type2_ini;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+
+                                    f_running[idInt] = true;
+                                    timeout_running[idInt] = 0;
+
+                                    Update_MC_Run_Idle(idInt, true);
+                                    InsertDataToDatabase(id, ipaddress, ip_port[idInt], mc_name, line_num, listStr);
+
+                                }
+                                else
+                                {
+                                    if (cntWrongFormmat++ >= 3)
+                                    {
+                                        cntWrongFormmat = 0;
+                                        WrongDataLogging(id, ipaddress, dat);
+                                        Confirm_Recieved(ip_port[idInt], ipaddress);
+                                        Debug.WriteLine("ID: " + id + "    " + "IP: " + ipaddress + "    " + "Wrong Format HRD!!!");
+                                    }
                                 }
                             }
+                            else
+                            {
+                                // 1 packet = 31 arrays
+                                // if <31 --> Don't care
+                            }                            
                         }
                         else
                         {
-                            f_ready = false;
                             return;
                         }
                     }
                 }
                 catch(Exception ex)
                 {
-                    f_ready = false;
+                    Debug.WriteLine(ex.ToString());
                 }
             });
         }
