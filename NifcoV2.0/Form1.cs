@@ -1080,6 +1080,36 @@ namespace NifcoV2._0
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        public void Update_Reset_All(int ok_, int ng_, bool ok_color_, bool ng_color_, string reset_)
+        {
+            try
+            {
+                string query = "UPDATE tbl_maindisplay SET ok=@ok, ng=@ng, ok_color=@ok_color, ng_color=@ng_color, reset=@reset";
+
+                // create connection and command in "using" blocks
+                using (SqlConnection conn = new SqlConnection(myConnection))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.Add("@ok", SqlDbType.Int).Value = ok_;
+                    cmd.Parameters.Add("@ng", SqlDbType.Int).Value = ng_;
+                    cmd.Parameters.Add("@ok_color", SqlDbType.Bit).Value = ok_color_;
+                    cmd.Parameters.Add("@ng_color", SqlDbType.Bit).Value = ng_color_;
+                    cmd.Parameters.Add("@reset", SqlDbType.DateTime).Value = reset_;
+
+                    // open connection, execute query, close connection
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                ErrorLogging(ex);
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         public void Update_MC_Run_Idle(int id_, bool status)
         {
             try
@@ -1129,23 +1159,23 @@ namespace NifcoV2._0
             label41.Text = Line5_ini;
             label32.Text = Line6_ini;
 
-            label2.Text = Machine_Type1_ini;
-            label5.Text = Machine_Type2_ini;
+            label2.Text = "1." + Machine_Type1_ini;
+            label5.Text = "2." + Machine_Type2_ini;
 
-            label8.Text = Machine_Type1_ini;
-            label6.Text = Machine_Type2_ini;
+            label8.Text = "3." + Machine_Type1_ini;
+            label6.Text = "4." + Machine_Type2_ini;
 
-            label27.Text = Machine_Type1_ini;
-            label7.Text = Machine_Type2_ini;
+            label27.Text = "5." + Machine_Type1_ini;
+            label7.Text = "6." + Machine_Type2_ini;
 
-            label34.Text = Machine_Type1_ini;
-            label33.Text = Machine_Type2_ini;
+            label34.Text = "7." + Machine_Type1_ini;
+            label33.Text = "8." + Machine_Type2_ini;
 
-            label57.Text = Machine_Type1_ini;
-            label55.Text = Machine_Type2_ini;
+            label57.Text = "9." + Machine_Type1_ini;
+            label55.Text = "10." + Machine_Type2_ini;
 
-            label58.Text = Machine_Type1_ini;
-            label56.Text = Machine_Type2_ini;
+            label58.Text = "11." + Machine_Type1_ini;
+            label56.Text = "12." + Machine_Type2_ini;
 
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1637,6 +1667,74 @@ namespace NifcoV2._0
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        void Reset_All()
+        {
+            DialogResult res = MessageBox.Show("Do you want to Reset all the counter?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            if (res.ToString() == "OK")
+            {                
+                string dt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+
+                ResetLogging(1, Cnt_OK[1].ToString(), Cnt_NG[1].ToString());
+                label10.BackColor = Color.Gray;
+                label11.BackColor = Color.Gray;
+
+                ResetLogging(2, Cnt_OK[2].ToString(), Cnt_NG[2].ToString());
+                label17.BackColor = Color.Gray;
+                label22.BackColor = Color.Gray;
+
+                ResetLogging(3, Cnt_OK[3].ToString(), Cnt_NG[3].ToString());
+                label18.BackColor = Color.Gray;
+                label23.BackColor = Color.Gray;
+
+                ResetLogging(4, Cnt_OK[4].ToString(), Cnt_NG[4].ToString());
+                label19.BackColor = Color.Gray;
+                label24.BackColor = Color.Gray;
+
+                ResetLogging(5, Cnt_OK[5].ToString(), Cnt_NG[5].ToString());
+                label20.BackColor = Color.Gray;
+                label25.BackColor = Color.Gray;
+
+                ResetLogging(6, Cnt_OK[6].ToString(), Cnt_NG[6].ToString());
+                label21.BackColor = Color.Gray;
+                label26.BackColor = Color.Gray;
+
+                ResetLogging(7, Cnt_OK[7].ToString(), Cnt_NG[7].ToString());
+                label37.BackColor = Color.Gray;
+                label38.BackColor = Color.Gray;
+
+                ResetLogging(8, Cnt_OK[8].ToString(), Cnt_NG[8].ToString());
+                label39.BackColor = Color.Gray;
+                label40.BackColor = Color.Gray;
+
+
+                ResetLogging(9, Cnt_OK[9].ToString(), Cnt_NG[9].ToString());
+                label44.BackColor = Color.Gray;
+                label45.BackColor = Color.Gray;
+
+                ResetLogging(10, Cnt_OK[10].ToString(), Cnt_NG[10].ToString());
+                label47.BackColor = Color.Gray;
+                label48.BackColor = Color.Gray;
+
+                ResetLogging(11, Cnt_OK[11].ToString(), Cnt_NG[11].ToString());
+                label52.BackColor = Color.Gray;
+                label54.BackColor = Color.Gray;
+
+                ResetLogging(12, Cnt_OK[12].ToString(), Cnt_NG[12].ToString());
+                label51.BackColor = Color.Gray;
+                label53.BackColor = Color.Gray;
+
+                Update_Reset_All(0, 0, false, false, dt);
+                Update_UI();
+            }
+            else
+            {
+
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             Reset(1, label10, label11);
@@ -1761,6 +1859,12 @@ namespace NifcoV2._0
         {
             Form2 frm = new Form2();
             frm.Show();
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------     
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Reset_All();
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                     
