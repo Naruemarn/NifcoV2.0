@@ -1,0 +1,12 @@
+C:\Nifco\Monitor_Report\Monitor_Report\bin\Debug\Monitor_Report.exe.config
+C:\Nifco\Monitor_Report\Monitor_Report\bin\Debug\Monitor_Report.exe
+C:\Nifco\Monitor_Report\Monitor_Report\bin\Debug\Monitor_Report.pdb
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.csproj.AssemblyReference.cache
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.csproj.SuggestedBindingRedirects.cache
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.Form1.resources
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.Properties.Resources.resources
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.csproj.GenerateResource.cache
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.csproj.CoreCompileInputs.cache
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.exe
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.pdb
+C:\Nifco\Monitor_Report\Monitor_Report\obj\Debug\Monitor_Report.csproj.CopyComplete
