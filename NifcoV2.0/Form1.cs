@@ -58,7 +58,7 @@ namespace NifcoV2._0
 
         string Server_IP_Port_ini = null;
 
-        public static string[] MC_IP_ini = new string[12];
+        //public static string[] MC_IP_ini = new string[12];
 
 
         public static string Line1_ini = null;
@@ -76,21 +76,22 @@ namespace NifcoV2._0
         public static string[] MC_Connected = new string[12];
 
 
-        public static bool[] Status_OK = new bool[12];
-        public static bool[] Status_NG = new bool[12];
+        public static bool[] Status_OK = new bool[13];
+        public static bool[] Status_NG = new bool[13];
 
-        public static int[] Cnt_OK = new int[12];
-        public static int[] Cnt_NG = new int[12];
+        public static int[] Cnt_OK = new int[13];
+        public static int[] Cnt_NG = new int[13];
 
-        int[] timeout_running = new int[12];
-        bool[] f_running = new bool[12];
+        int[] timeout_running = new int[13];
+        bool[] f_running = new bool[13];
 
-        public static bool[] f_disconnect = new bool[12];
+        //public static bool[] f_disconnect = new bool[12];
 
         StringBuilder messageData = new StringBuilder();
 
         bool f_ready = false;
         int cntWrongFormmat = 0;
+        string[] ip_port = new string[13];
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
@@ -118,10 +119,9 @@ namespace NifcoV2._0
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        public bool Insert_Database(string MachineIP,  string MachineName, string LineNumber, string dtFormat, List<string> data)
+        public bool Insert_Database(string id,  string MachineName, string LineNumber, string dtFormat, List<string> data)
         {
             bool res_ = false;
-            int id = 0;
 
             SqlConnection cn = new SqlConnection(myConnection);
 
@@ -224,248 +224,252 @@ namespace NifcoV2._0
                 myTran = cn.BeginTransaction(IsolationLevel.ReadCommitted);
                 cmd.CommandText = sql_str;
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@buf_Date", data[0].Substring(3, 6));
-                cmd.Parameters.AddWithValue("@buf_Time", data[1]);
-                cmd.Parameters.AddWithValue("@buf_Bank", data[2]);
-                cmd.Parameters.AddWithValue("@buf_No", data[3]);
-                cmd.Parameters.AddWithValue("@buf_WeldTime", data[4]);
-                cmd.Parameters.AddWithValue("@buf_HoldTime", data[5]);
-                cmd.Parameters.AddWithValue("@buf_Collapse", data[6]);
-                cmd.Parameters.AddWithValue("@buf_Energy", data[7]);
-                cmd.Parameters.AddWithValue("@buf_PeakPower", data[8]);
-                cmd.Parameters.AddWithValue("@buf_Pressure", data[9]);
+                cmd.Parameters.AddWithValue("@buf_Date", data[1].Substring(3, 6));
+                cmd.Parameters.AddWithValue("@buf_Time", data[2]);
+                cmd.Parameters.AddWithValue("@buf_Bank", data[3]);
+                cmd.Parameters.AddWithValue("@buf_No", data[4]);
+                cmd.Parameters.AddWithValue("@buf_WeldTime", data[5]);
+                cmd.Parameters.AddWithValue("@buf_HoldTime", data[6]);
+                cmd.Parameters.AddWithValue("@buf_Collapse", data[7]);
+                cmd.Parameters.AddWithValue("@buf_Energy", data[8]);
+                cmd.Parameters.AddWithValue("@buf_PeakPower", data[9]);
+                cmd.Parameters.AddWithValue("@buf_Pressure", data[10]);
 
 
                 // Collapse Control Mode
-                if (data[10] == "0")
+                switch(data[11])
                 {
-                    data[10] = "Monitor";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", "Monitor");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", "Collapse");
+                        break;
+                    case "2":
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", "Total collaspe");
+                        break;
+                    case "3":
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", "Absolute");
+                        break;
+                    case "4":
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", "Total absolute");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_CollapseControlMode", data[11]);
+                        break;
                 }
-                else if (data[10] == "1")
-                {
-                    data[10] = "Collapse";
-                }
-                else if (data[10] == "2")
-                {
-                    data[10] = "Total collaspe";
-                }
-                else if (data[10] == "3")
-                {
-                    data[10] = "Absolute";
-                }
-                else if (data[10] == "4")
-                {
-                    data[10] = "Total absolute";
-                }
-                cmd.Parameters.AddWithValue("@buf_CollapseControlMode", data[10]);
+
 
                 // Energy Mode
-                if (data[11] == "0")
+                switch (data[12])
                 {
-                    data[11] = "Monitor";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_EnergyControlMode", "Monitor");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_EnergyControlMode", "Energy");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_EnergyControlMode", data[12]);
+                        break;
+
                 }
-                else if (data[11] == "1")
-                {
-                    data[11] = "Energy";
-                }
-                cmd.Parameters.AddWithValue("@buf_EnergyControlMode", data[11]);
 
 
                 // Control Result
-                if (data[12] == "0")
+                switch (data[13])
                 {
-                    data[12] = "Weld time";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Weld time");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Hold time");
+                        break;
+                    case "2":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Collapse");
+                        break;
+                    case "3":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Total collapse");
+                        break;
+                    case "4":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Absolute");
+                        break;
+                    case "5":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Total absolute");
+                        break;
+                    case "6":
+                    case "8":
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", "Energy");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_ControlResult", data[13]);
+                        break;
+
                 }
-                else if (data[12] == "1")
+
+                // 0=OK , 1=NG
+                switch (data[14])
                 {
-                    data[12] = "Hold time";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_WeldTimeEvaluation", "Good");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_WeldTimeEvaluation", "No Good");
+                        break;                   
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_WeldTimeEvaluation", data[14]);
+                        break;
+
                 }
-                else if (data[12] == "2")
+
+                // 0=OK , 1=NG
+                switch (data[15])
                 {
-                    data[12] = "Collapse";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_CollapseEvaluation", "Good");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_CollapseEvaluation", "No Good");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_CollapseEvaluation", data[15]);
+                        break;
                 }
-                else if (data[12] == "3")
+
+                // 0=OK , 1=NG
+                switch (data[16])
                 {
-                    data[12] = "Total collapse";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_EnergyEvaluation", "Good");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_EnergyEvaluation", "No Good");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_EnergyEvaluation", data[16]);
+                        break;
                 }
-                else if (data[12] == "4")
-                {
-                    data[12] = "Absolute";
-                }
-                else if (data[12] == "5")
-                {
-                    data[12] = "Total absolute";
-                }
-                else if (data[12] == "6")
-                {
-                    data[12] = "Energy";
-                }
-                else if (data[12] == "8")
-                {
-                    data[12] = "Energy";
-                }
-                cmd.Parameters.AddWithValue("@buf_ControlResult", data[12]);
 
 
                 // 0=OK , 1=NG
-                if (data[13] == "0")
+                switch (data[17])
                 {
-                    data[13] = "Good";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_PeakPowerEvaluation", "Good");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_PeakPowerEvaluation", "No Good");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_PeakPowerEvaluation", data[17]);
+                        break;
                 }
-                else if (data[13] == "1")
-                {
-                    data[13] = "No Good";
-                }
-                cmd.Parameters.AddWithValue("@buf_WeldTimeEvaluation", data[13]);
-
-                // 0=OK , 1=NG
-                if (data[14] == "0")
-                {
-                    data[14] = "Good";
-                }
-                else if (data[14] == "1")
-                {
-                    data[14] = "No Good";
-                }
-                cmd.Parameters.AddWithValue("@buf_CollapseEvaluation", data[14]);
-
-                // 0=OK , 1=NG
-                if (data[15] == "0")
-                {
-                    data[15] = "Good";
-                }
-                else if (data[15] == "1")
-                {
-                    data[15] = "No Good";
-                }
-                cmd.Parameters.AddWithValue("@buf_EnergyEvaluation", data[15]);
 
 
                 // 0=OK , 1=NG
-                if (data[16] == "0")
+                switch (data[18])
                 {
-                    data[16] = "Good";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_PressureEvaluation", "Good");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_PressureEvaluation", "No Good");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_PressureEvaluation", data[18]);
+                        break;
                 }
-                else if (data[16] == "1")
+
+
+                if ((data[14] == "0") && (data[15] == "0") && (data[16] == "0") && (data[17] == "0") && (data[18] == "0"))   // OK
                 {
-                    data[16] = "No Good";
-                }
-                cmd.Parameters.AddWithValue("@buf_PeakPowerEvaluation", data[16]);
+                    Status_OK[int.Parse(id)] = true;
+                    Cnt_OK[int.Parse(id)]++;
 
-
-                // 0=OK , 1=NG
-                if (data[17] == "0")
-                {
-                    data[17] = "Good";
-                }
-                else if (data[17] == "1")
-                {
-                    data[17] = "No Good";
-                }
-                cmd.Parameters.AddWithValue("@buf_PressureEvaluation", data[17]);
-
-                if ((data[13] == "Good") && (data[14] == "Good") && (data[15] == "Good") && (data[16] == "Good") && (data[17] == "Good"))   // OK
-                {
-                    for (int i = 0; i < 12; i++)
-                    {
-                        if (MachineIP == MC_IP_ini[i])
-                        {
-                            Status_OK[i] = true;
-                            Cnt_OK[i]++;
-
-                            id = i + 1;
-
-                            cmd.Parameters.AddWithValue("@buf_MC_Name", MachineName);
-                            cmd.Parameters.AddWithValue("@buf_Result", "OK");
-                            cmd.Parameters.AddWithValue("@buf_LineNumber", LineNumber);
-                        }
-                    }
+                    cmd.Parameters.AddWithValue("@buf_MC_Name", MachineName);
+                    cmd.Parameters.AddWithValue("@buf_Result", "OK");
+                    cmd.Parameters.AddWithValue("@buf_LineNumber", LineNumber);                                            
                 }
                 else // NG
                 {
-                    for (int i = 0; i < 12; i++)
-                    {
-                        if (MachineIP == MC_IP_ini[i])
-                        {
-                            Status_NG[i] = true;
-                            Cnt_NG[i]++;
-
-                            id = i + 1;
-
-                            cmd.Parameters.AddWithValue("@buf_MC_Name", MachineName);
-                            cmd.Parameters.AddWithValue("@buf_Result", "NG");
-                            cmd.Parameters.AddWithValue("@buf_LineNumber", LineNumber);
-                        }
-                    }
+                    Status_NG[int.Parse(id)] = true;
+                    Cnt_NG[int.Parse(id)]++;
+                           
+                    cmd.Parameters.AddWithValue("@buf_MC_Name", MachineName);
+                    cmd.Parameters.AddWithValue("@buf_Result", "NG");
+                    cmd.Parameters.AddWithValue("@buf_LineNumber", LineNumber);                     
                 }
 
-                cmd.Parameters.AddWithValue("@buf_WeldDelayTime", data[18]);
-                cmd.Parameters.AddWithValue("@buf_PressureDelayTime", data[19]);
-                cmd.Parameters.AddWithValue("@buf_CollapseSetup", data[20]);
-                cmd.Parameters.AddWithValue("@buf_TotalCollapseSetup", data[21]);
-                cmd.Parameters.AddWithValue("@buf_EnergySetup", data[22]);
-                cmd.Parameters.AddWithValue("@buf_PowerLevel", data[23]);
+                cmd.Parameters.AddWithValue("@buf_WeldDelayTime", data[19]);
+                cmd.Parameters.AddWithValue("@buf_PressureDelayTime", data[20]);
+                cmd.Parameters.AddWithValue("@buf_CollapseSetup", data[21]);
+                cmd.Parameters.AddWithValue("@buf_TotalCollapseSetup", data[22]);
+                cmd.Parameters.AddWithValue("@buf_EnergySetup", data[23]);
+                cmd.Parameters.AddWithValue("@buf_PowerLevel", data[24]);
 
 
                 // Soft Start
-                if (data[24] == "1")
+                switch (data[25])
                 {
-                    data[24] = "0.025";
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", "0.025");
+                        break;
+                    case "2":
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", "0.050");
+                        break;
+                    case "3":
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", "0.100");
+                        break;
+                    case "4":
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", "0.150");
+                        break;
+                    case "5":
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", "0.200");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_SoftStart", data[25]);
+                        break;
                 }
-                else if (data[24] == "2")
-                {
-                    data[24] = "0.050";
-                }
-                else if (data[24] == "3")
-                {
-                    data[24] = "0.100";
-                }
-                else if (data[24] == "4")
-                {
-                    data[24] = "0.150";
-                }
-                else if (data[24] == "5")
-                {
-                    data[24] = "0.200";
-                }
-                cmd.Parameters.AddWithValue("@buf_SoftStart", data[24]);
 
-                cmd.Parameters.AddWithValue("@buf_DownSpeed1", data[25]);
-                cmd.Parameters.AddWithValue("@buf_DownSpeed2", data[26]);
+                cmd.Parameters.AddWithValue("@buf_DownSpeed1", data[26]);
+                cmd.Parameters.AddWithValue("@buf_DownSpeed2", data[27]);
 
                 // Trigger Type
-                if (data[27] == "0")
+                switch (data[28])
                 {
-                    data[27] = "Start";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_TriggerType", "Start");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_TriggerType", "Swith");
+                        break;
+                    case "2":
+                        cmd.Parameters.AddWithValue("@buf_TriggerType", "Touch");
+                        break;
+                    case "3":
+                        cmd.Parameters.AddWithValue("@buf_TriggerType", "Distance");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_TriggerType", data[28]);
+                        break;
                 }
-                else if (data[27] == "1")
-                {
-                    data[27] = "Swith";
-                }
-                else if (data[27] == "2")
-                {
-                    data[27] = "Touch";
-                }
-                else if (data[27] == "3")
-                {
-                    data[27] = "Distance";
-                }
-                cmd.Parameters.AddWithValue("@buf_TriggerType", data[27]);
 
                 // Touch Response
-                if (data[28] == "0")
+                switch (data[29])
                 {
-                    data[28] = "Fast";
+                    case "0":
+                        cmd.Parameters.AddWithValue("@buf_TouchResponse", "Fast");
+                        break;
+                    case "1":
+                        cmd.Parameters.AddWithValue("@buf_TouchResponse", "Standard");
+                        break;
+                    case "2":
+                        cmd.Parameters.AddWithValue("@buf_TouchResponse", "Slow");
+                        break;
+                    default:
+                        cmd.Parameters.AddWithValue("@buf_TouchResponse", data[29]);
+                        break;
                 }
-                else if (data[28] == "1")
-                {
-                    data[28] = "Standard";
-                }
-                else if (data[28] == "2")
-                {
-                    data[28] = "Slow";
-                }
-                cmd.Parameters.AddWithValue("@buf_TouchResponse", data[28]);
 
                 cmd.Parameters.AddWithValue("@buf_DateTime", dtFormat);
 
@@ -497,14 +501,14 @@ namespace NifcoV2._0
             }
 
 
-            SaveCounter(id, Cnt_OK[id - 1], Cnt_NG[id - 1], Status_OK[id - 1], Status_NG[id - 1]);
+            SaveCounter(id, Cnt_OK[int.Parse(id)], Cnt_NG[int.Parse(id)], Status_OK[int.Parse(id)], Status_NG[int.Parse(id)]);
 
 
             return res_;
         }
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
-        public void SaveCounter(int id_, int ok_, int ng_, bool ok_color_, bool ng_color_)
+        public void SaveCounter(string id_, int ok_, int ng_, bool ok_color_, bool ng_color_)
         {
             try
             {
@@ -699,7 +703,7 @@ namespace NifcoV2._0
         }
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
-        public void WrongDataLogging(string ip, string data)
+        public void WrongDataLogging(string id, string ip, string data)
         {
             try
             {
@@ -717,7 +721,7 @@ namespace NifcoV2._0
 
                 using (StreamWriter sw = File.AppendText(strPath))
                 {
-                    sw.WriteLine(dt + "    IP: " + ip + "    " + "Data: " + data);
+                    sw.WriteLine(dt + "    ID: " + id + "    IP: " + ip  + "    Data: " + data);
                     sw.Close();
                 }
 
@@ -878,7 +882,7 @@ namespace NifcoV2._0
 
                 Server_IP_Port_ini = cn_file["CONFIG"]["SERVER_IP_PORT"];
 
-                MC_IP_ini[0] = cn_file["CONFIG"]["MC1_IP"];
+                /*MC_IP_ini[0] = cn_file["CONFIG"]["MC1_IP"];
                 MC_IP_ini[1] = cn_file["CONFIG"]["MC2_IP"];
                 MC_IP_ini[2] = cn_file["CONFIG"]["MC3_IP"];
                 MC_IP_ini[3] = cn_file["CONFIG"]["MC4_IP"];
@@ -889,7 +893,7 @@ namespace NifcoV2._0
                 MC_IP_ini[8] = cn_file["CONFIG"]["MC9_IP"];
                 MC_IP_ini[9] = cn_file["CONFIG"]["MC10_IP"];
                 MC_IP_ini[10] = cn_file["CONFIG"]["MC11_IP"];
-                MC_IP_ini[11] = cn_file["CONFIG"]["MC12_IP"];
+                MC_IP_ini[11] = cn_file["CONFIG"]["MC12_IP"];*/
 
 
 
@@ -966,30 +970,30 @@ namespace NifcoV2._0
                                 Actual.Text = "Actual :  " + (int.Parse(dr[3].ToString()) + int.Parse(dr[4].ToString())).ToString() + " Units";
 
                                 // Restore ตอนเปิดโปรแกรมใหม่
-                                Cnt_OK[id - 1] = int.Parse(dr[3].ToString());
-                                Cnt_NG[id - 1] = int.Parse(dr[4].ToString());
+                                Cnt_OK[id] = int.Parse(dr[3].ToString());
+                                Cnt_NG[id] = int.Parse(dr[4].ToString());
 
                                 // Color
                                 if (dr[5].ToString() == "True")
                                 {
                                     OK.BackColor = Color.FromArgb(0, 192, 0);   // Green
-                                    Status_OK[id - 1] = true;
+                                    Status_OK[id] = true;
                                 }
                                 else
                                 {
                                     OK.BackColor = Color.Gray;
-                                    Status_OK[id - 1] = false;
+                                    Status_OK[id] = false;
                                 }
 
                                 if (dr[6].ToString() == "True")
                                 {
                                     NG.BackColor = Color.Red;
-                                    Status_NG[id - 1] = true;
+                                    Status_NG[id] = true;
                                 }
                                 else
                                 {
                                     NG.BackColor = Color.Gray;
-                                    Status_NG[id - 1] = false;
+                                    Status_NG[id] = false;
                                 }
 
                                 // Reset time
@@ -1233,24 +1237,16 @@ namespace NifcoV2._0
                     mc_name = Machine_Type2_ini;
                 }
 
-                //InsertFirst(i);
+                InsertFirst(i);
 
-               // Update_Line_MC(i, line_num, mc_name);
+                Update_Line_MC(i, line_num, mc_name);
             }
 
-            for (int i = 0; i < 12; i++)
-            {
-                f_disconnect[i] = false;
-            }
+            Update_UI();
 
-            //Update_UI();
-
-            if (Connect_MC_ini == "1")   //สำหรับใช้ในโรงงาน ติดต่อเครื่องจักร
+            if (Connect_MC_ini == "1")   // 1 สำหรับใช้ในโรงงาน ติดต่อเครื่องจักร , 0 สำหรับแสดงผลเฉยๆ
             {
                 server.Start();
-
-                //Thread t = new Thread(() => Check_Status_Disconnect());
-                //t.Start();
             }
             else
             {
@@ -1264,7 +1260,7 @@ namespace NifcoV2._0
             if(server.IsListening)
             {
                 server.Send(Client_IP_Port, Dat);
-                Debug.WriteLine("### Confirm Received!!!");
+                Debug.WriteLine("### ID: " + Dat + "    IP: " + Client_IP_Port + "    Confirm Received!!!  ---> OK");
             }
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1275,14 +1271,14 @@ namespace NifcoV2._0
             try
             {
                 // DateTime
-                string YYMMDD = data[0].Substring(3, 6);
+                string YYMMDD = data[1].Substring(3, 6);
                 string Year = YYMMDD.Substring(0, 2);
                 string Month = YYMMDD.Substring(2, 2);
                 string Day = YYMMDD.Substring(4, 2);
                 string Date = "20" + Year + "-" + Month + "-" + Day;
 
 
-                string HHMMSS = data[1];
+                string HHMMSS = data[2];
                 string Hour = HHMMSS.Substring(0, 2);
                 string Minute = HHMMSS.Substring(2, 2);
                 string Sec = HHMMSS.Substring(4, 2);
@@ -1297,207 +1293,227 @@ namespace NifcoV2._0
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        void InsertDataToDatabase(string id, string ip, string ip_port, string machineName, string lineNum, List<string> data)            
+        {
+            try
+            {
+                string dtFormat = ConvertToDateTimeFormat(data);
+
+                int cnt = Is_Inserted(dtFormat, machineName, lineNum);
+                if (cnt > 0)
+                {
+                    // data already in DB 
+                    Confirm_Recieved(ip_port, id);
+                    Debug.WriteLine("### ID: " + id + "    IP: " + ip + "    Duplicate Cnt = " + cnt.ToString() + "    ---> Failed");
+                }
+                else
+                {
+                    // Insert Database
+                    bool finish = Insert_Database(id, machineName, lineNum, dtFormat, data);
+                    if (finish)
+                    {
+                        Confirm_Recieved(ip_port, id);
+                        Debug.WriteLine("### ID: " + id + "    IP: " + ip + "    Inserted             ---> OK");
+
+                    }
+                    else
+                    {
+                        // Client Send again
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        void saveIpPort(string ip, string ipPort)
+        {
+            switch (ip)
+            {
+                case "192.168.0.1":
+                    ip_port[1] = ipPort;
+                    break;
+                case "192.168.0.2":
+                    ip_port[2] = ipPort;
+                    break;
+                case "192.168.0.3":
+                    ip_port[3] = ipPort;
+                    break;
+                case "192.168.0.4":
+                    ip_port[4] = ipPort;
+                    break;
+                case "192.168.0.5":
+                    ip_port[5] = ipPort;
+                    break;
+                case "192.168.0.6":
+                    ip_port[6] = ipPort;
+                    break;
+                case "192.168.0.7":
+                    ip_port[7] = ipPort;
+                    break;
+                case "192.168.0.8":
+                    ip_port[8] = ipPort;
+                    break;
+                case "192.168.0.9":
+                    ip_port[9] = ipPort;
+                    break;
+                case "192.168.0.10":
+                    ip_port[10] = ipPort;
+                    break;
+                case "192.168.0.11":
+                    ip_port[11] = ipPort;
+                    break;
+                case "192.168.0.12":
+                    ip_port[12] = ipPort;
+                    break;
+                default:
+                    break;
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private void Events_DataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
         {
             this.Invoke((MethodInvoker)delegate
             {
                 try
                 {
-                    string dat = Encoding.UTF8.GetString(e.Data.Array);
-                    dat = dat.TrimEnd('\0'); // remove \0\0\0\0\0\0\0\0\0 in data
+                    string[] ip = e.IpPort.Split(':');
+
+                    saveIpPort(ip[0], e.IpPort);
+
+                    string inputData = Encoding.UTF8.GetString(e.Data.Array);                    
                     //textBox1.Text += $"{e.IpPort}: {dat}{Environment.NewLine}";
                     Debug.WriteLine("----------------------------------------------------------------------------------------------------------------------------");
-                    Debug.Write(dat);
 
-                    if (dat.IndexOf("\u0004") > -1) // <CR><EOT>  \r\u0004
+                    string[] strDat = inputData.Split(new[] { "START," }, StringSplitOptions.None);
+                    strDat = strDat.Where(x => !string.IsNullOrEmpty(x)).ToArray(); // Remove array if emply
+
+                    foreach (string str in strDat)
                     {
-                        if (f_ready == false)
+
+                        if (str.IndexOf("\u0004") > -1) // <CR><EOT>  \r\u0004q
                         {
-                            f_ready = true;
+                            string dat = str.TrimEnd('\0'); // remove \0\0\0\0\0\0\0\0\0 in data
 
-                            string[] ip = e.IpPort.Split(':');
-
-                            List<String> listStr = new List<String>();
-
-                            listStr = dat.Split(',').ToList();
-
-                            string Header = "";
-                            try
+                            if (f_ready == false)
                             {
-                                Header = listStr[0].Substring(0, 3);
-                            }
-                            catch { }
+                                f_ready = true;
 
-                            if (Header == "HRD")
-                            {
-                                string line_num = "";
-                                string mc_name = "";
+                                List<String> listStr = new List<String>();
 
-                                if (ip[0] == MC_IP_ini[0])
+                                listStr = dat.Split(',').ToList();
+
+                                int len = listStr.Count();
+                                if (len >= 31)
                                 {
-                                    line_num = Line1_ini;
-                                    mc_name = Machine_Type1_ini;
+                                    string id = listStr[0];
+                                    int idInt = int.Parse(id);
+                                    string ipaddress = ip_port[idInt].ToString();
+                                    Debug.Write("### ID: " + id + "    " + "IP: " + ipaddress + "    " + dat);
 
-                                    f_running[0] = true;
-                                    timeout_running[0] = 0;
-
-                                    Update_MC_Run_Idle(1, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[1])
-                                {
-                                    line_num = Line1_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[1] = true;
-                                    timeout_running[1] = 0;
-
-                                    Update_MC_Run_Idle(2, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[2])
-                                {
-                                    line_num = Line2_ini;
-                                    mc_name = Machine_Type1_ini;
-
-                                    f_running[2] = true;
-                                    timeout_running[2] = 0;
-
-                                    Update_MC_Run_Idle(3, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[3])
-                                {
-                                    line_num = Line2_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[3] = true;
-                                    timeout_running[3] = 0;
-
-                                    Update_MC_Run_Idle(4, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[4])
-                                {
-                                    line_num = Line3_ini;
-                                    mc_name = Machine_Type1_ini;
-
-                                    f_running[4] = true;
-                                    timeout_running[4] = 0;
-
-                                    Update_MC_Run_Idle(5, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[5])
-                                {
-                                    line_num = Line3_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[5] = true;
-                                    timeout_running[5] = 0;
-
-                                    Update_MC_Run_Idle(6, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[6])
-                                {
-                                    line_num = Line4_ini;
-                                    mc_name = Machine_Type1_ini;
-
-                                    f_running[6] = true;
-                                    timeout_running[6] = 0;
-
-                                    Update_MC_Run_Idle(7, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[7])
-                                {
-                                    line_num = Line4_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[7] = true;
-                                    timeout_running[7] = 0;
-
-                                    Update_MC_Run_Idle(8, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[8])
-                                {
-                                    line_num = Line5_ini;
-                                    mc_name = Machine_Type1_ini;
-
-                                    f_running[8] = true;
-                                    timeout_running[8] = 0;
-
-                                    Update_MC_Run_Idle(9, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[9])
-                                {
-                                    line_num = Line5_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[9] = true;
-                                    timeout_running[9] = 0;
-
-                                    Update_MC_Run_Idle(10, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[10])
-                                {
-                                    line_num = Line6_ini;
-                                    mc_name = Machine_Type1_ini;
-
-                                    f_running[10] = true;
-                                    timeout_running[10] = 0;
-
-                                    Update_MC_Run_Idle(11, true);
-                                }
-                                else if (ip[0] == MC_IP_ini[11])
-                                {
-                                    line_num = Line6_ini;
-                                    mc_name = Machine_Type2_ini;
-
-                                    f_running[11] = true;
-                                    timeout_running[11] = 0;
-
-                                    Update_MC_Run_Idle(12, true);
-                                }
-
-
-                                string dtFormat = ConvertToDateTimeFormat(listStr);
-
-                                int cnt = Is_Inserted(dtFormat, mc_name, line_num);
-                                if (cnt > 0)
-                                {
-                                    // data already in DB 
-                                    Confirm_Recieved(e.IpPort, ip[0]);
-                                    Debug.WriteLine("### Cnt record in DB = " + cnt.ToString());
-                                }
-                                else
-                                {
-                                    // Insert Database
-                                    bool finish = Insert_Database(ip[0], mc_name, line_num, dtFormat, listStr);
-                                    if (finish)
+                                    string Header = "";
+                                    try
                                     {
-                                        Confirm_Recieved(e.IpPort, ip[0]);
-                                        Debug.WriteLine("### Inserted");
+                                        Header = listStr[1].Substring(0, 3);
+                                    }
+                                    catch { }
+
+                                    if (Header == "HRD")
+                                    {
+                                        string line_num = "";
+                                        string mc_name = "";
+
+                                        switch (id)
+                                        {
+                                            case "1":
+                                                line_num = Line1_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "2":
+                                                line_num = Line1_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            case "3":
+                                                line_num = Line2_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "4":
+                                                line_num = Line2_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            case "5":
+                                                line_num = Line3_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "6":
+                                                line_num = Line3_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            case "7":
+                                                line_num = Line4_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "8":
+                                                line_num = Line4_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            case "9":
+                                                line_num = Line5_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "10":
+                                                line_num = Line5_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            case "11":
+                                                line_num = Line6_ini;
+                                                mc_name = Machine_Type1_ini;
+                                                break;
+                                            case "12":
+                                                line_num = Line6_ini;
+                                                mc_name = Machine_Type2_ini;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+
+
+                                        f_running[idInt] = true;
+                                        timeout_running[idInt] = 0;
+
+                                        Update_MC_Run_Idle(idInt, true);
+                                        InsertDataToDatabase(id, ipaddress, ip_port[idInt], mc_name, line_num, listStr);
 
                                     }
                                     else
                                     {
-                                        // Client Send again
+                                        if (cntWrongFormmat++ >= 3)
+                                        {
+                                            cntWrongFormmat = 0;
+                                            WrongDataLogging(id, ipaddress, dat);
+                                            Confirm_Recieved(ip_port[idInt], ipaddress);
+                                            Debug.WriteLine("ID: " + id + "    " + "IP: " + ipaddress + "    " + "Wrong Format HRD!!!");
+                                        }
                                     }
+
+                                    f_ready = false;
+                                }
+                                else
+                                {
+                                    // 1 packet = 31 arrays
+                                    // if <31 --> Don't care
                                 }
                             }
-                            else
-                            {
-                                if(cntWrongFormmat++ >= 3)
-                                {
-                                    cntWrongFormmat = 0;
-                                    WrongDataLogging(ip[0], dat);
-                                    Confirm_Recieved(e.IpPort, ip[0]);
-                                    Debug.WriteLine("Wrong Format!!!");
-                                }                                
-                            }
-
-                            f_ready = false;
                         }
-                    }
-                    else
-                    {
-                        f_ready = false;
-                        return;
+                        else
+                        {
+                            f_ready = false;
+                            return;
+                        }
                     }
                 }
                 catch(Exception ex)
@@ -1549,199 +1565,43 @@ namespace NifcoV2._0
 
             //textBox1.AppendText("Timer\r\n");
 
-            Check_Running(int.Parse(Timeout_Idle_ini));  // 30sec
+            Check_Running(1, label110);
+            Check_Running(2, label111); 
+            Check_Running(3, label112); 
+            Check_Running(4, label113); 
+            Check_Running(5, label114); 
+            Check_Running(6, label115); 
+            Check_Running(7, label116); 
+            Check_Running(8, label117);
+            Check_Running(9, label118); 
+            Check_Running(10, label119); 
+            Check_Running(11, label120); 
+            Check_Running(12, label121);
 
-            
+
+
 
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        void Check_Running(int sec)
+        void Check_Running(int id, Label label)
         {
-            
+            int sec = int.Parse(Timeout_Idle_ini);  // 30sec
 
-            if (f_running[0])
+            if (f_running[id])
             {
-                if (++timeout_running[0] >= sec) // 10sec
-                {
-                    label110.Text = "";
-                    f_running[0] = false;
-                    Update_MC_Run_Idle(1, false);
+                if (++timeout_running[id] >= sec) // 10sec
+                { 
+                    label.Text = "";
+                    f_running[id] = false;
+                    Update_MC_Run_Idle(id, false);
                 }
                 else
                 {
-                    int cnt_down = sec - timeout_running[0];
-                    label110.Text = cnt_down.ToString() + " sec";
+                    int cnt_down = sec - timeout_running[id];
+                    label.Text = cnt_down.ToString() + " sec";
                 }
-            }
-            
-            if (f_running[1])
-            {
-                if (++timeout_running[1] >= sec) // 10sec
-                {
-                    label111.Text = "";
-                    f_running[1] = false;
-                    Update_MC_Run_Idle(2, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[1];
-                    label111.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[2])
-            {
-                if (++timeout_running[2] >= sec) // 10sec
-                {
-                    label112.Text = "";
-                    f_running[2] = false;
-                    Update_MC_Run_Idle(3, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[2];
-                    label112.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[3])
-            {
-                if (++timeout_running[3] >= sec) // 10sec
-                {
-                    label113.Text = "";
-                    f_running[3] = false;
-                    Update_MC_Run_Idle(4, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[3];
-                    label113.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[4])
-            {
-                if (++timeout_running[1] >= sec) // 10sec
-                {
-                    label114.Text = "";
-                    f_running[4] = false;
-                    Update_MC_Run_Idle(5, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[4];
-                    label114.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[5])
-            {
-                if (++timeout_running[5] >= sec) // 10sec
-                {
-                    label115.Text = "";
-                    f_running[5] = false;
-                    Update_MC_Run_Idle(6, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[5];
-                    label115.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[6])
-            {
-                if (++timeout_running[6] >= sec) // 10sec
-                {
-                    label116.Text = "";
-                    f_running[6] = false;
-                    Update_MC_Run_Idle(7, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[6];
-
-                    label116.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[7])
-            {
-                if (++timeout_running[7] >= sec) // 10sec
-                {
-                    label117.Text = "";
-                    f_running[7] = false;
-                    Update_MC_Run_Idle(8, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[7];
-
-                    
-                    label117.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[8])
-            {
-                if (++timeout_running[8] >= sec) // 10sec
-                {
-                    label118.Text = "";
-                    f_running[8] = false;
-                    Update_MC_Run_Idle(9, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[8];
-                    label118.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[9])
-            {
-                if (++timeout_running[9] >= sec) // 10sec
-                {
-                    label119.Text = "";
-                    f_running[9] = false;
-                    Update_MC_Run_Idle(10, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[9];
-                    label119.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[10])
-            {
-                if (++timeout_running[10] >= sec) // 10sec
-                {
-                    label120.Text = "";
-                    f_running[10] = false;
-                    Update_MC_Run_Idle(11, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[10];
-                    label120.Text = cnt_down.ToString() + " sec";
-                }
-            }
-            
-            if (f_running[11])
-            {
-                if (++timeout_running[11] >= sec) // 10sec
-                {
-                    label121.Text = "";
-                    f_running[11] = false;
-                    Update_MC_Run_Idle(12, false);
-                }
-                else
-                {
-                    int cnt_down = sec - timeout_running[11];
-                    label121.Text = cnt_down.ToString() + " sec";
-                }
-            }
+            }                      
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1752,7 +1612,7 @@ namespace NifcoV2._0
 
             if (res.ToString() == "OK")
             {
-                ResetLogging(id, Cnt_OK[id - 1].ToString(), Cnt_NG[id - 1].ToString());
+                ResetLogging(id, Cnt_OK[id].ToString(), Cnt_NG[id].ToString());
 
                 string dt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 

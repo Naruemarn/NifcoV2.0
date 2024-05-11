@@ -195,6 +195,30 @@
             this.button5 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button3 = new System.Windows.Forms.Button();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label122 = new System.Windows.Forms.Label();
+            this.label123 = new System.Windows.Forms.Label();
+            this.label124 = new System.Windows.Forms.Label();
+            this.label125 = new System.Windows.Forms.Label();
+            this.label126 = new System.Windows.Forms.Label();
+            this.label127 = new System.Windows.Forms.Label();
+            this.label128 = new System.Windows.Forms.Label();
+            this.label129 = new System.Windows.Forms.Label();
+            this.label130 = new System.Windows.Forms.Label();
+            this.label131 = new System.Windows.Forms.Label();
+            this.label132 = new System.Windows.Forms.Label();
+            this.label133 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -380,6 +404,8 @@
             this.tableLayoutPanel27.ColumnCount = 2;
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel27.Controls.Add(this.label132, 1, 1);
+            this.tableLayoutPanel27.Controls.Add(this.label72, 0, 1);
             this.tableLayoutPanel27.Controls.Add(this.label120, 1, 0);
             this.tableLayoutPanel27.Controls.Add(this.label108, 0, 0);
             this.tableLayoutPanel27.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -488,6 +514,8 @@
             this.tableLayoutPanel26.ColumnCount = 2;
             this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel26.Controls.Add(this.label131, 1, 1);
+            this.tableLayoutPanel26.Controls.Add(this.label71, 0, 1);
             this.tableLayoutPanel26.Controls.Add(this.label119, 1, 0);
             this.tableLayoutPanel26.Controls.Add(this.label107, 0, 0);
             this.tableLayoutPanel26.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -596,6 +624,8 @@
             this.tableLayoutPanel25.ColumnCount = 2;
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel25.Controls.Add(this.label130, 1, 1);
+            this.tableLayoutPanel25.Controls.Add(this.label70, 0, 1);
             this.tableLayoutPanel25.Controls.Add(this.label118, 1, 0);
             this.tableLayoutPanel25.Controls.Add(this.label106, 0, 0);
             this.tableLayoutPanel25.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -704,6 +734,8 @@
             this.tableLayoutPanel23.ColumnCount = 2;
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel23.Controls.Add(this.label128, 1, 1);
+            this.tableLayoutPanel23.Controls.Add(this.label68, 0, 1);
             this.tableLayoutPanel23.Controls.Add(this.label116, 1, 0);
             this.tableLayoutPanel23.Controls.Add(this.label104, 0, 0);
             this.tableLayoutPanel23.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1185,6 +1217,8 @@
             this.tableLayoutPanel24.ColumnCount = 2;
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel24.Controls.Add(this.label129, 1, 1);
+            this.tableLayoutPanel24.Controls.Add(this.label69, 0, 1);
             this.tableLayoutPanel24.Controls.Add(this.label117, 1, 0);
             this.tableLayoutPanel24.Controls.Add(this.label105, 0, 0);
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1293,6 +1327,8 @@
             this.tableLayoutPanel28.ColumnCount = 2;
             this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel28.Controls.Add(this.label133, 1, 1);
+            this.tableLayoutPanel28.Controls.Add(this.label73, 0, 1);
             this.tableLayoutPanel28.Controls.Add(this.label121, 1, 0);
             this.tableLayoutPanel28.Controls.Add(this.label109, 0, 0);
             this.tableLayoutPanel28.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1591,6 +1627,8 @@
             this.tableLayoutPanel22.ColumnCount = 2;
             this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel22.Controls.Add(this.label127, 1, 1);
+            this.tableLayoutPanel22.Controls.Add(this.label67, 0, 1);
             this.tableLayoutPanel22.Controls.Add(this.label115, 1, 0);
             this.tableLayoutPanel22.Controls.Add(this.label103, 0, 0);
             this.tableLayoutPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1699,6 +1737,8 @@
             this.tableLayoutPanel21.ColumnCount = 2;
             this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel21.Controls.Add(this.label126, 1, 1);
+            this.tableLayoutPanel21.Controls.Add(this.label66, 0, 1);
             this.tableLayoutPanel21.Controls.Add(this.label114, 1, 0);
             this.tableLayoutPanel21.Controls.Add(this.label102, 0, 0);
             this.tableLayoutPanel21.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1843,6 +1883,8 @@
             this.tableLayoutPanel20.ColumnCount = 2;
             this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel20.Controls.Add(this.label125, 1, 1);
+            this.tableLayoutPanel20.Controls.Add(this.label64, 0, 1);
             this.tableLayoutPanel20.Controls.Add(this.label113, 1, 0);
             this.tableLayoutPanel20.Controls.Add(this.label101, 0, 0);
             this.tableLayoutPanel20.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1915,6 +1957,8 @@
             this.tableLayoutPanel19.ColumnCount = 2;
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel19.Controls.Add(this.label124, 1, 1);
+            this.tableLayoutPanel19.Controls.Add(this.label62, 0, 1);
             this.tableLayoutPanel19.Controls.Add(this.label112, 1, 0);
             this.tableLayoutPanel19.Controls.Add(this.label100, 0, 0);
             this.tableLayoutPanel19.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2024,6 +2068,8 @@
             this.tableLayoutPanel18.ColumnCount = 2;
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel18.Controls.Add(this.label123, 1, 1);
+            this.tableLayoutPanel18.Controls.Add(this.label60, 0, 1);
             this.tableLayoutPanel18.Controls.Add(this.label111, 1, 0);
             this.tableLayoutPanel18.Controls.Add(this.label99, 0, 0);
             this.tableLayoutPanel18.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2505,6 +2551,8 @@
             this.tableLayoutPanel17.ColumnCount = 2;
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel17.Controls.Add(this.label122, 1, 1);
+            this.tableLayoutPanel17.Controls.Add(this.label59, 0, 1);
             this.tableLayoutPanel17.Controls.Add(this.label110, 1, 0);
             this.tableLayoutPanel17.Controls.Add(this.label98, 0, 0);
             this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 0);
@@ -2622,6 +2670,294 @@
             this.button3.Text = "Log";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label59
+            // 
+            this.label59.BackColor = System.Drawing.Color.Black;
+            this.label59.ForeColor = System.Drawing.Color.Lime;
+            this.label59.Location = new System.Drawing.Point(0, 25);
+            this.label59.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(70, 22);
+            this.label59.TabIndex = 49;
+            this.label59.Text = "192.168.0.1";
+            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label60
+            // 
+            this.label60.BackColor = System.Drawing.Color.Black;
+            this.label60.ForeColor = System.Drawing.Color.Lime;
+            this.label60.Location = new System.Drawing.Point(0, 25);
+            this.label60.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(70, 22);
+            this.label60.TabIndex = 49;
+            this.label60.Text = "192.168.0.2";
+            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label62
+            // 
+            this.label62.BackColor = System.Drawing.Color.Black;
+            this.label62.ForeColor = System.Drawing.Color.Lime;
+            this.label62.Location = new System.Drawing.Point(0, 25);
+            this.label62.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(70, 22);
+            this.label62.TabIndex = 49;
+            this.label62.Text = "192.168.0.3";
+            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label64
+            // 
+            this.label64.BackColor = System.Drawing.Color.Black;
+            this.label64.ForeColor = System.Drawing.Color.Lime;
+            this.label64.Location = new System.Drawing.Point(0, 25);
+            this.label64.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(70, 22);
+            this.label64.TabIndex = 49;
+            this.label64.Text = "192.168.0.4";
+            this.label64.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label66
+            // 
+            this.label66.BackColor = System.Drawing.Color.Black;
+            this.label66.ForeColor = System.Drawing.Color.Lime;
+            this.label66.Location = new System.Drawing.Point(0, 25);
+            this.label66.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(70, 22);
+            this.label66.TabIndex = 49;
+            this.label66.Text = "192.168.0.5";
+            this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label67
+            // 
+            this.label67.BackColor = System.Drawing.Color.Black;
+            this.label67.ForeColor = System.Drawing.Color.Lime;
+            this.label67.Location = new System.Drawing.Point(0, 25);
+            this.label67.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(70, 22);
+            this.label67.TabIndex = 49;
+            this.label67.Text = "192.168.0.6";
+            this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label68
+            // 
+            this.label68.BackColor = System.Drawing.Color.Black;
+            this.label68.ForeColor = System.Drawing.Color.Lime;
+            this.label68.Location = new System.Drawing.Point(0, 25);
+            this.label68.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(70, 22);
+            this.label68.TabIndex = 49;
+            this.label68.Text = "192.168.0.7";
+            this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label69
+            // 
+            this.label69.BackColor = System.Drawing.Color.Black;
+            this.label69.ForeColor = System.Drawing.Color.Lime;
+            this.label69.Location = new System.Drawing.Point(0, 25);
+            this.label69.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(70, 22);
+            this.label69.TabIndex = 49;
+            this.label69.Text = "192.168.0.8";
+            this.label69.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label70
+            // 
+            this.label70.BackColor = System.Drawing.Color.Black;
+            this.label70.ForeColor = System.Drawing.Color.Lime;
+            this.label70.Location = new System.Drawing.Point(0, 25);
+            this.label70.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(70, 22);
+            this.label70.TabIndex = 49;
+            this.label70.Text = "192.168.0.9";
+            this.label70.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label71
+            // 
+            this.label71.BackColor = System.Drawing.Color.Black;
+            this.label71.ForeColor = System.Drawing.Color.Lime;
+            this.label71.Location = new System.Drawing.Point(0, 25);
+            this.label71.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(70, 22);
+            this.label71.TabIndex = 49;
+            this.label71.Text = "192.168.0.10";
+            this.label71.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label72
+            // 
+            this.label72.BackColor = System.Drawing.Color.Black;
+            this.label72.ForeColor = System.Drawing.Color.Lime;
+            this.label72.Location = new System.Drawing.Point(0, 25);
+            this.label72.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(70, 22);
+            this.label72.TabIndex = 49;
+            this.label72.Text = "192.168.0.11";
+            this.label72.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label73
+            // 
+            this.label73.BackColor = System.Drawing.Color.Black;
+            this.label73.ForeColor = System.Drawing.Color.Lime;
+            this.label73.Location = new System.Drawing.Point(0, 25);
+            this.label73.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(70, 22);
+            this.label73.TabIndex = 49;
+            this.label73.Text = "192.168.0.12";
+            this.label73.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label122
+            // 
+            this.label122.BackColor = System.Drawing.Color.Black;
+            this.label122.ForeColor = System.Drawing.Color.Lime;
+            this.label122.Location = new System.Drawing.Point(70, 25);
+            this.label122.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(47, 22);
+            this.label122.TabIndex = 49;
+            this.label122.Text = "ID:1";
+            this.label122.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label123
+            // 
+            this.label123.BackColor = System.Drawing.Color.Black;
+            this.label123.ForeColor = System.Drawing.Color.Lime;
+            this.label123.Location = new System.Drawing.Point(70, 25);
+            this.label123.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(47, 22);
+            this.label123.TabIndex = 49;
+            this.label123.Text = "ID:2";
+            this.label123.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label124
+            // 
+            this.label124.BackColor = System.Drawing.Color.Black;
+            this.label124.ForeColor = System.Drawing.Color.Lime;
+            this.label124.Location = new System.Drawing.Point(70, 25);
+            this.label124.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label124.Name = "label124";
+            this.label124.Size = new System.Drawing.Size(47, 22);
+            this.label124.TabIndex = 49;
+            this.label124.Text = "ID:3";
+            this.label124.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label125
+            // 
+            this.label125.BackColor = System.Drawing.Color.Black;
+            this.label125.ForeColor = System.Drawing.Color.Lime;
+            this.label125.Location = new System.Drawing.Point(70, 25);
+            this.label125.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(47, 22);
+            this.label125.TabIndex = 49;
+            this.label125.Text = "ID:4";
+            this.label125.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label126
+            // 
+            this.label126.BackColor = System.Drawing.Color.Black;
+            this.label126.ForeColor = System.Drawing.Color.Lime;
+            this.label126.Location = new System.Drawing.Point(70, 25);
+            this.label126.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(47, 22);
+            this.label126.TabIndex = 49;
+            this.label126.Text = "ID:5";
+            this.label126.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label127
+            // 
+            this.label127.BackColor = System.Drawing.Color.Black;
+            this.label127.ForeColor = System.Drawing.Color.Lime;
+            this.label127.Location = new System.Drawing.Point(70, 25);
+            this.label127.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(47, 22);
+            this.label127.TabIndex = 49;
+            this.label127.Text = "ID:6";
+            this.label127.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label128
+            // 
+            this.label128.BackColor = System.Drawing.Color.Black;
+            this.label128.ForeColor = System.Drawing.Color.Lime;
+            this.label128.Location = new System.Drawing.Point(70, 25);
+            this.label128.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(47, 22);
+            this.label128.TabIndex = 49;
+            this.label128.Text = "ID: 7";
+            this.label128.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label129
+            // 
+            this.label129.BackColor = System.Drawing.Color.Black;
+            this.label129.ForeColor = System.Drawing.Color.Lime;
+            this.label129.Location = new System.Drawing.Point(70, 25);
+            this.label129.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(47, 22);
+            this.label129.TabIndex = 49;
+            this.label129.Text = "ID: 8";
+            this.label129.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label130
+            // 
+            this.label130.BackColor = System.Drawing.Color.Black;
+            this.label130.ForeColor = System.Drawing.Color.Lime;
+            this.label130.Location = new System.Drawing.Point(70, 25);
+            this.label130.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(47, 22);
+            this.label130.TabIndex = 49;
+            this.label130.Text = "ID: 9";
+            this.label130.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label131
+            // 
+            this.label131.BackColor = System.Drawing.Color.Black;
+            this.label131.ForeColor = System.Drawing.Color.Lime;
+            this.label131.Location = new System.Drawing.Point(70, 25);
+            this.label131.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(47, 22);
+            this.label131.TabIndex = 49;
+            this.label131.Text = "ID: 10";
+            this.label131.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label132
+            // 
+            this.label132.BackColor = System.Drawing.Color.Black;
+            this.label132.ForeColor = System.Drawing.Color.Lime;
+            this.label132.Location = new System.Drawing.Point(70, 25);
+            this.label132.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(47, 22);
+            this.label132.TabIndex = 49;
+            this.label132.Text = "ID: 11";
+            this.label132.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label133
+            // 
+            this.label133.BackColor = System.Drawing.Color.Black;
+            this.label133.ForeColor = System.Drawing.Color.Lime;
+            this.label133.Location = new System.Drawing.Point(70, 25);
+            this.label133.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(47, 22);
+            this.label133.TabIndex = 49;
+            this.label133.Text = "ID: 12";
+            this.label133.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -2865,6 +3201,30 @@
         private System.Windows.Forms.Label label116;
         private System.Windows.Forms.Label label117;
         private System.Windows.Forms.Label label121;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label123;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label122;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label124;
+        private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.Label label130;
+        private System.Windows.Forms.Label label128;
+        private System.Windows.Forms.Label label129;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.Label label127;
+        private System.Windows.Forms.Label label126;
+        private System.Windows.Forms.Label label125;
     }
 }
 
